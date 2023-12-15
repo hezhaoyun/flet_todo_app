@@ -18,8 +18,16 @@ class TodoApp(ft.UserControl):
             tabs=[ft.Tab(text='all'), ft.Tab(text='active'), ft.Tab(text='completed')]
         )
 
+        self.items_left = ft.Text("0 items left")
+
         self.view = ft.Column(
             controls=[
+                ft.Row(
+                    controls=[
+                        ft.Text(value="Todos", style="headlineMedium")
+                    ],
+                    alignment=ft.MainAxisAlignment.CENTER
+                ),
                 ft.Row(
                     controls=[
                         self.new_task,
@@ -30,7 +38,15 @@ class TodoApp(ft.UserControl):
                     spacing=25,
                     controls=[
                         self.filter,
-                        self.tasks
+                        self.tasks,
+                        ft.Row(
+                            alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                            vertical_alignment=ft.CrossAxisAlignment.CENTER,
+                            controls=[
+                                self.items_left,
+                                ft.OutlinedButton(text="Clear completed", on_click=self.clear_clicked),
+                            ],
+                        ),
                     ]
                 )
             ]
@@ -41,15 +57,21 @@ class TodoApp(ft.UserControl):
 
     async def update_async(self):
 
+        count = 0
         status = self.filter.tabs[self.filter.selected_index].text
 
         for task in self.tasks.controls:
+            
             task.visible = (
                 status == 'all'
                 or (status == 'active' and not task.completed)
                 or (status == 'completed' and task.completed)
             )
+            
+            if not task.completed:
+                count += 1
 
+        self.items_left.value = f"{count} active item(s) left"
         await super().update_async()
 
     async def add_task(self, e):
@@ -66,6 +88,11 @@ class TodoApp(ft.UserControl):
 
     async def task_status_change(self, task):
         await self.update_async()
-        
+
     async def tabs_changed(self, e):
         await self.update_async()
+
+    async def clear_clicked(self, e):
+            for task in self.tasks.controls[:]:
+                if task.completed:
+                    await self.task_delete(task)
