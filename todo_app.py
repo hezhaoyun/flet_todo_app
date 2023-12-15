@@ -18,13 +18,14 @@ class TodoApp(ft.UserControl):
             tabs=[ft.Tab(text='all'), ft.Tab(text='active'), ft.Tab(text='completed')]
         )
 
-        self.items_left = ft.Text("0 items left")
+        self.items_left = ft.Text('0 items left')
 
         self.view = ft.Column(
+            width=600,
             controls=[
                 ft.Row(
                     controls=[
-                        ft.Text(value="Todos", style="headlineMedium")
+                        ft.Text(value='Todos', style='headlineMedium')
                     ],
                     alignment=ft.MainAxisAlignment.CENTER
                 ),
@@ -44,7 +45,7 @@ class TodoApp(ft.UserControl):
                             vertical_alignment=ft.CrossAxisAlignment.CENTER,
                             controls=[
                                 self.items_left,
-                                ft.OutlinedButton(text="Clear completed", on_click=self.clear_clicked),
+                                ft.OutlinedButton(text='Clear completed', on_click=self.clear_clicked),
                             ],
                         ),
                     ]
@@ -71,7 +72,7 @@ class TodoApp(ft.UserControl):
             if not task.completed:
                 count += 1
 
-        self.items_left.value = f"{count} active item(s) left"
+        self.items_left.value = f'{count} active item(s) left'
         await super().update_async()
 
     async def add_task(self, e):

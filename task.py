@@ -29,8 +29,8 @@ class Task(ft.UserControl):
                 ft.Row(
                     spacing=0,
                     controls=[
-                        ft.IconButton(icon=ft.icons.CREATE_OUTLINED, tooltip="Edit To-Do", on_click=self.edit_clicked),
-                        ft.IconButton(icon=ft.icons.DELETE_OUTLINED, tooltip="Delete To-Do", on_click=self.delete_clicked),
+                        ft.IconButton(icon=ft.icons.CREATE_OUTLINED, tooltip='Edit To-Do', on_click=self.edit_clicked),
+                        ft.IconButton(icon=ft.icons.DELETE_OUTLINED, tooltip='Delete To-Do', on_click=self.delete_clicked),
                     ]
                 )
             ]
@@ -42,7 +42,7 @@ class Task(ft.UserControl):
             vertical_alignment=ft.CrossAxisAlignment.CENTER,
             controls=[
                 self.edit_name,
-                ft.IconButton(icon=ft.icons.DONE_OUTLINE_OUTLINED, tooltip="Update To-Do", on_click=self.save_clicked),
+                ft.IconButton(icon=ft.icons.DONE_OUTLINE_OUTLINED, tooltip='Update To-Do', on_click=self.save_clicked),
             ]
         )
 
